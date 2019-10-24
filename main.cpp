@@ -18,6 +18,7 @@ int main() {
   display_board(board);
   cout << "Done!" << "\n\n";
 
+
   cout << "=================== Question 1 ===================" << "\n\n";
 
   load_board("easy.dat", board);
@@ -36,14 +37,68 @@ int main() {
 
   load_board("easy.dat", board);
 
-  // Should be OK
+  /* Should be OK */
   cout << "Putting '1' into I8 is ";
   if (!make_move("I8", '1', board)) 
     cout << "NOT ";
   cout << "a valid move. The board is:" << '\n';
   display_board(board);
 
-	// write more tests
+  /* Testing row duplicate*/
+  cout << "Putting '7' into I7 is ";
+  if (!make_move("I7", '7', board)) 
+    cout << "NOT ";
+  cout << "a valid move. The board is:" << '\n';
+  display_board(board);
+
+  /* Testing column duplicate*/
+  cout << "Putting '3' into H7 is ";
+  if (!make_move("H7", '3', board)) 
+    cout << "NOT ";
+  cout << "a valid move. The board is:" << '\n';
+  display_board(board);
+
+  /* Testing square duplicate*/
+  cout << "Putting '7' into H1 is ";
+  if (!make_move("H1", '7', board)) 
+    cout << "NOT ";
+  cout << "a valid move. The board is:" << '\n';
+  display_board(board);
+
+  /* Testing lowercase row index */
+  cout << "Putting '6' into a1 is ";
+  if (!make_move("a1", '6', board)) 
+    cout << "NOT ";
+  cout << "a valid move. The board is:" << '\n';
+  display_board(board);
+
+  /* Testing row out of bounds */
+  cout << "Putting '5' into Y2 is ";
+  if (!make_move("Y2", '5', board)) 
+    cout << "NOT ";
+  cout << "a valid move. The board is:" << '\n';
+  display_board(board);
+
+  /* Testing column out of bounds */
+  cout << "Putting '1' into I11 is ";
+  if (!make_move("I11", '1', board)) 
+    cout << "NOT ";
+  cout << "a valid move. The board is:" << '\n';
+  display_board(board);
+
+  /* Testing non-numerical input */
+  cout << "Putting '*' into E5 is ";
+  if (!make_move("E5", '*', board)) 
+    cout << "NOT ";
+  cout << "a valid move. The board is:" << '\n';
+  display_board(board);
+
+   /* Testing pre-filled sudoku position */
+   cout << "Putting '7' into A6 is ";
+   if (!make_move("A6", '7', board)) 
+        cout << "NOT ";
+    cout << "a valid move. The board is:" << '\n';
+    display_board(board);
 
   cout << "=================== Question 3 ===================" << "\n\n";
 
@@ -72,11 +127,43 @@ int main() {
     cout << "A solution cannot be found." << '\n';
   cout << '\n';
 
-	// write more tests
-
   cout << "=================== Question 5 ===================" << "\n\n";
 
-	// write more tests
+  load_board("mystery1.dat", board);
+  if (solve_board(board)) {
+    cout << "The 'mystery1' board has a solution:" << '\n';
+    display_board(board);
+  } else 
+    cout << "A solution cannot be found." << '\n';
+  cout << '\n';
+    
+    cout << "===============================================" << endl;
 
+  solve_mystery_board("mystery1.dat");
+
+    cout << "===============================================" << endl;
+
+  load_board("mystery2.dat", board);
+  if (solve_board(board)) {
+    cout << "The 'mystery2' board has a solution:" << '\n';
+    display_board(board);
+  } else 
+    cout << "A solution cannot be found." << '\n';
+  cout << '\n';
+
+  load_board("mystery3.dat", board);
+  if (solve_board(board)) {
+    cout << "The 'mystery3' board has a solution:" << '\n';
+    display_board(board);
+  } else 
+    cout << "A solution cannot be found." << '\n';
+  cout << '\n';
+
+    cout << "===============================================" << endl;
+
+  solve_mystery_board("mystery3.dat");
+
+    cout << "===============================================" << endl;
+  
   return 0;
 }
