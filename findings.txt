@@ -1,1 +1,17 @@
 Summarise your findings here (see specification).
+
+Before presenting my findings it is important to note that the notion of 'difficulty' is arbitrary. It is explicitly linked with how hard human beings find solving a sudoku, which has little bearing on how much time/memory a computational function might need. This is because the recursive method used used to solve the sudoku is different from the logic implemented by a human. 
+
+The tests below attempted to identify which of the mystery boards require the most recursive calls, and thus add the most stack frames upon execution. This directly correlates to their memory expenditure which, I argue, can pertain to their 'difficulty' for the computer. I attempted to track the number of recursive calls by the call-by-reference parameter 'counter' inserted in the solve_board and recursive_solve functions of the program.  
+
+I used two different indexing methods on my recursive function to test the relative memory expense for the mystery boards:
+- The first indexing method ('forwards'), began in the index A1 and iterated through the sudoku grid by moving 'down' the rows (A - I), and thus filling the sudoku column by column. It ended in position I9, when the board was complete. 
+- The second variation ('backwards') began in index I9 and iterated through the grid by moving 'along' the columns (9 - 1), thus filling the sudoku row by row, and in descending position indexes. It ended in position A1, when the board was complete.
+
+Since the indexing of these two variations is 'opposite' in direction and starting position, I hypothesise that the average of these two results provides a sound working impression of the relative difficulty of each board for my recursive function. 
+
+I hypothesise that the 'mystery1' board is the board of 'extremely hard' difficulty, since it required 958118 recursive calls when solved 'forwards', and 54719 recursive calls when solved 'backwards'. This is larger on both counts than the 'hard' mystery3 board which required 251988 calls and 19268 calls respectively. The 'mystery1' board required on average, 506418 calls compared to the mystery2 board's 135628.
+
+Despite this, it is important to note that the 'extremely hard' mystery1 board solved 'backwards' was considerably less memory intensive, and thus 'easier', than the mystery3 board solved forwards. This underlines my first point regarding the arbitrary nature of difficulty, and shows that the 'difficulty' of a board for my recursive function was largely dependent on the nature of its indexing.
+
+Nonetheless, my results indicate that, on average, mystery1 is 'extremely hard', whilst mystery3 was just 'hard'. The mystery2 board is impossible to solve, evident from the 'false' return of the solve_board function.
