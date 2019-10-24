@@ -8,7 +8,7 @@ I used two different indexing methods on my recursive function to test the relat
 - The first indexing method ('forwards'), began in the index A1 and iterated through the sudoku grid by moving 'down' the rows (A - I), and thus filling the sudoku column by column. It ended in position I9, when the board was complete. 
 - The second variation ('backwards') began in index I9 and iterated through the grid by moving 'along' the columns (9 - 1), thus filling the sudoku row by row, and in descending position indexes. It ended in position A1, when the board was complete.
 
-Since the indexing of these two variations is 'opposite' in direction and starting position, I hypothesise that the average of these two results provides a sound working impression of the relative difficulty of each board for my recursive function. 
+Since the indexing of these two variations is 'opposite' in direction and starting position, I hypothesise that the average of their two results provides a sound working impression of the relative difficulty of each board for my recursive function. 
 
 I hypothesise that the 'mystery1' board is the board of 'extremely hard' difficulty, since it required 958118 recursive calls when solved 'forwards', and 54719 recursive calls when solved 'backwards'. This is larger on both counts than the 'hard' mystery3 board which required 251988 calls and 19268 calls respectively. The 'mystery1' board required on average, 506418 calls compared to the mystery2 board's 135628.
 
