@@ -78,68 +78,80 @@ bool solve_board(char board [][9])
 
     /*Flag to choose if Sudoku is assessed backwards (for question 5)*/
     bool backwards = false;
-    int start_row = 0, start_column = 0;
 
-    if(recursive_search(board, counter, backwards, start_row, start_column))
+    if(recursive_search(board, counter, backwards))
     {
         return true;
     } else return false;
 }
 
     /* Function to verify moves and fill board spaces if possible */
-bool recursive_search (char board[][9], int& counter, bool backwards, int row, 
-int column)
+bool recursive_search (char board[][9], int& counter, bool backwards)
 {
 
-    /* Counter to keep track of number of recursive calls */
-    counter++;
+	/* Counter to keep track of number of recursive calls */
+	counter++;
 
-    /* Stopping case: if the board is full */
-    if(is_complete(board))
-        return true;
+	/* Stopping case: if the board is full */
+	if(is_complete(board)) 
+	{
+		return true;
+	}
 
-    /* Look for a '.' */
-    
-    if (backwards == true)
-    {
-        while (board[row][column] != '.' && row >= 0)
-        {
-            column--; 
-            if(column < 0)
-            {
-                row--;
-                column = 8;
-            }
-        }
-    } 
-    else
-    {
-        while (board[row][column] != '.' && column < 9)
-        {
-            row++;
-            if(row > 8)
-            {
-                column++;
-                row = 0;
-            }
-        }
-    }
+	/* Index backwards through the grid, testing different values */
+	if (backwards == true)
+	{
+		for(int row = 8; row >= 0; row--)
+		{
+			for(int column = 8; column >= 0; column--)
+			{
+				if(board[row][column] == '.')
+				{
+					for(int i = 1; i < 10; i++)
+					{
+						const char digit = static_cast<char>(i + 48);
+						if (change_value(board, digit, row, column) &&
+						recursive_search(board, counter, backwards))
+						{
+							return true;           
+						}
 
+					}
+					board[row][column] = '.';
+					return false;
+				}
 
-        /* Test out different values in sudoku position */
-    for (int i = 1; i < 10; i++)
-    {
-        const char digit = static_cast<char>(i + 48);
-        if (change_value(board, digit, row, column) &&
-        recursive_search(board, counter, backwards, row, column))//Recursive call 
-        {
-            return true;           
-        } 
-    }
+			}
 
-    /* If no value has been found */
-    board[row][column] = '.';
+		}
+	} else //Index forwards
+	{	for(int column = 0; column < 9; column++)
+		{
+			for(int row = 0; row < 9; row++)
+			{
+				if(board[row][column] == '.')
+				{
+					for(int i = 1; i < 10; i++)
+					{
+						const char digit = static_cast<char>(i + 48);
+						if (change_value(board, digit, row, column) &&
+						recursive_search(board, counter, backwards))
+						{
+							return true;           
+						}
+
+					}
+					board[row][column] = '.';
+					return false;
+				}
+
+			}
+		}
+	}
+
+	
     return false;
+
 }
 
     /* Function to check if the board is complete */
@@ -310,9 +322,8 @@ void solve_mystery_board(const char* filename)
 
     /*Solve board forwards*/
     bool backwards = false;
-    int start_row = 0, start_column = 0;
 
-    if(recursive_search(board_copy1, counter, backwards, start_row, start_column))
+    if(recursive_search(board_copy1, counter, backwards))
     {
         cout << "Result: " << endl << filename << " requires " << counter 
         << " calls when solving forwards." << endl;
@@ -322,8 +333,7 @@ void solve_mystery_board(const char* filename)
 
     /*Solve board backwards*/
     backwards = true;
-    start_row = 8, start_column = 8;
-    if(recursive_search(board_copy2, counter, backwards, start_row, start_column))
+    if(recursive_search(board_copy2, counter, backwards))
     {
         cout << filename << " requires " << counter 
         << " calls when solving backwards." << endl << endl;

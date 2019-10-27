@@ -4,7 +4,7 @@ void display_board(const char board[9][9]);
 
 bool solve_board(char board [][9]);
 
-bool recursive_search (char board[][9], int& counter, bool backwards, int row, int column);
+bool recursive_search (char board[][9], int& counter, bool backwards);
 
 bool is_complete(char board [][9]); 
 
